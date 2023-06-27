@@ -1,7 +1,6 @@
-/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable max-len */
 import React                              from 'react'
-import {ConfigProvider, Form, Radio, Tooltip}             from 'antd'
+import { Form, Radio, Tooltip }           from 'antd'
 import AreaProblemsInputs                 from './AreaProblemsInputs'
 import { InfoCircleOutlined }             from '@ant-design/icons'
 import { useAppSelector }                 from '../../../store/hooks'

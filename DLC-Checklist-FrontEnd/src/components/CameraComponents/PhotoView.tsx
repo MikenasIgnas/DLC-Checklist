@@ -3,9 +3,9 @@ import React            from 'react'
 import { Modal }        from 'antd'
 
 type PhotoViewProps = {
-    showImage:      boolean
-    setShowImage:   (value: React.SetStateAction<boolean>) => void
-    photo:          string
+    showImage:      boolean,
+    setShowImage:   (value: React.SetStateAction<boolean>) => void,
+    photo:          string,
 }
 
 const PhotoView = ({showImage, setShowImage, photo}: PhotoViewProps) => {

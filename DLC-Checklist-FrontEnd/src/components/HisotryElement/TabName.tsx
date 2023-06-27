@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import { Badge, ConfigProvider } from 'antd'
-import React from 'react'
+import React              from 'react'
+import { Badge }          from 'antd'
 import { useAppSelector } from '../../store/hooks'
 
 type TabNameProps = {
@@ -9,7 +9,6 @@ type TabNameProps = {
 
 const TabName = ({itemId}:TabNameProps) => {
   const filledData =        useAppSelector((state)=> state.fetchedData.FilledData)
-  const defaultTheme =      useAppSelector((state)=> state.theme.value)
   const filteredByRoute =   filledData?.filter((el) => el.routeNumber === itemId)
   let routeProblemCount =   0
 

@@ -28,6 +28,7 @@ const CameraTool = ({ dutiesId }: CameraToolProps) => {
   const [hasOldPhoto, setHasOldPhoto] =           React.useState<ChecklistPhotosType>()
   const latesPhotos =                             useAppSelector((state) => state.fetchedData.latestPhotos)
   const [cookies] =                               useCookies(['access_token'])
+
   React.useEffect(() => {
     const localStoragePhotos = localStorage.getItem('photos')
     if (localStoragePhotos) {

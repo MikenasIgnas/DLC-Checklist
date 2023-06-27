@@ -11,6 +11,7 @@ type AreaProblemsInputsProps = {
 };
 
 const { TextArea } = Input
+
 const AreaProblemsInputs = ({ reaction, name, dutiesId }:AreaProblemsInputsProps) => {
   const today =         new Date()
   const currentTime =   `${today.getHours()}:${today.getMinutes()}`

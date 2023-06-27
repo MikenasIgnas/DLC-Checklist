@@ -1,49 +1,40 @@
-const {uid} = require("uid");
-const bcrypt = require("bcrypt");
-const sendRes = require("../modules/UniversalRes");
+const {uid} =               require("uid");
+const bcrypt =              require("bcrypt");
+const sendRes =             require("../modules/UniversalRes");
 const FilledChecklistData = require("../../shemas/FilledChecklistData");
-
-const jwt = require('jsonwebtoken')
+const jwt =                 require('jsonwebtoken')
+const config =              process.env;
+const MongoClient =         require('mongodb').MongoClient;
+const client =              new MongoClient('mongodb://10.81.7.29:27017/');
+const { ObjectId } =        require('mongodb');
 require('dotenv').config()
-const config = process.env;
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient('mongodb://10.81.7.29:27017/');
-const { ObjectId } = require('mongodb');
 
 module.exports = {
-    
     createUser: async (req, res) => {
         const users = client.db('ChecklistDB').collection('registeredusers');
         const archivedUsers = client.db('ChecklistDB').collection('archivedusers');
         const userIdCounter = client.db('ChecklistDB').collection('userIdCounter');
-    
         userIdCounter.findOneAndUpdate(
             { id: "userId" },
             { "$inc": { "seq": 1 } },
             { new: true, upsert: true },
             async (err, cd) => {
                 let seqId
-
                   if (!cd || !cd.value.seq) {
                         seqId = 1;
                     }
                     else {
                         seqId = cd.value.seq;
                     }
-    
                 try {
                     const { email, passwordOne, passwordTwo, username, userRole, status, dateCreated, defaultTheme } = req.body
-    
                     if (!(email && passwordOne && username, userRole)) {
                         res.status(400).send("All input is required");
                     }
-    
                     const oldUser = await users.findOne({ email });
-    
                     if (oldUser) {
                         return res.status(409).send("User Already Exist. Please Login");
                     }
-    
                     encryptedPassword = await bcrypt.hash(passwordOne, 10);
                     const secret = uid()
                     const user = {
@@ -92,7 +83,6 @@ module.exports = {
             console.log(err);
           }
     },
-
 
     getAllUsers: async (req, res) => {
         const collection = client.db('ChecklistDB').collection('registeredusers');
@@ -161,7 +151,6 @@ module.exports = {
             }
         );
         return sendRes(res, false, "all good", null)
-
     },
 
     getSingleHistoryELementData: async (req, res) => {
@@ -173,12 +162,11 @@ module.exports = {
 
     updateFilledChecklistData: async (req, res) => {
         const {pageId, values} = req.body
-
         await FilledChecklistData.findOneAndUpdate({pageId: String(pageId)}, {$set: {values: values}}, {new : true})
         res.send({success: true})
     },
 
-    getTotalHistoryData: async (req, res) => {
+    totalHistoryEntries: async (req, res) => {
         const checklistHistoryData = client.db('ChecklistDB').collection('checklistHistoryData');
         const totalHistoryData = await checklistHistoryData.countDocuments()
         return sendRes(res, false, "totalHistoryData",totalHistoryData)
@@ -247,9 +235,7 @@ module.exports = {
                 {secret: secret},
                 {$set: {username, email,userRole}},
             )
-
             return sendRes(res, false, 'editedProfileData', editedProfileData)   
-            
             }else{
             const password = await bcrypt.hash(passwordOne, 10)
             const repeatPassword = password
@@ -260,6 +246,7 @@ module.exports = {
             return sendRes(res, false, 'editedProfileData', editedProfileData)
             }    
     },
+
     changedUsername: async (req,res) => {
         const checklistHistoryData = client.db('ChecklistDB').collection('checklistHistoryData');
         const username = req.body.username
@@ -268,7 +255,6 @@ module.exports = {
             {secret: secret},
             {$set: {userName:username}},
         )
-
         return sendRes(res, false, 'changeUsernameInHistoryElements', changeUsernameInHistoryElements)
     },
 
@@ -289,6 +275,7 @@ module.exports = {
         )
         return sendRes(res, false, 'changeUsernameInHistoryElements', updateTheme)
     },
+
     changeUsersStatus: async (req,res)=> {
         const archivedUsers = client.db('ChecklistDB').collection('archivedusers');
         const {secret}= req.params
@@ -299,6 +286,7 @@ module.exports = {
         )
         return sendRes(res, false, 'updateUsersStatus', updateUsersStatus)
     },
+
     addDeletionData: async (req, res) => {
         const archivedUsers = client.db('ChecklistDB').collection('archivedusers');
         const {secret}= req.params
@@ -316,8 +304,7 @@ module.exports = {
         const result = await historyItem.findOneAndDelete({ _id: ObjectId(_id) });
         if (result.value === null) {
           return res.status(404).json({ error: 'Document not found' });
-        }
-      
+        }  
         res.send({ success: true });
     },
 
@@ -336,6 +323,7 @@ module.exports = {
         )
         sendRes(res, false, 'latestHistoryItem', item.value)
     },
+
     getHistoryData: async (req, res) => {
         const historyItem = client.db('ChecklistDB').collection('checklistHistoryData');
         const items = await historyItem
@@ -348,13 +336,13 @@ module.exports = {
           .toArray();
         sendRes(res, false, 'historyItems', items);
       },
+
     postPhotos: async (req, res) => {
         const problemPhotos = client.db('ChecklistDB').collection('problemPhotos');
         const historyIdCounter = client.db('ChecklistDB').collection('historyIdCounter');
         const historyItemId = await historyIdCounter.findOne({id:"historyId"})
         const count = await problemPhotos.countDocuments() 
         if(count === 0){
-
             await problemPhotos.updateMany(
                     { checklistId:historyItemId.seq - 1 },
                     { $set: { checklistId: Number(historyItemId.seq)} }
@@ -363,7 +351,6 @@ module.exports = {
                         ...item,
             checklistId: historyItemId.seq
           }));
-        
           for (const item of photosWithChecklistId) {
                 await problemPhotos.insertOne(item);
               }
@@ -384,12 +371,12 @@ module.exports = {
                 };
                 const update = { $set: { photo: item.photo } };
                 const options = { upsert: true };
-              
                 await problemPhotos.updateMany(filter, update, options);
               }
             sendRes(res, false, 'postLastestAndCurrentPhotos', photosWithChecklistId)
         }
     },
+
     postLastestAndCurrentPhotos: async (req, res) => {
         const problemPhotos = client.db('ChecklistDB').collection('problemPhotos');
         const historyIdCounter = client.db('ChecklistDB').collection('historyIdCounter');
@@ -410,6 +397,7 @@ module.exports = {
             sendRes(res, false, 'postLastestAndCurrentPhotos', photosWithChecklistId)
         }
     },
+
     postLatestPhotos: async (req, res) => {
         const problemPhotos = client.db('ChecklistDB').collection('problemPhotos');
         const historyIdCounter = client.db('ChecklistDB').collection('historyIdCounter');
@@ -420,12 +408,14 @@ module.exports = {
           );    
           sendRes(res, false, 'postLatestPhotos', updateLatest)
     },
+
     getPhotos: async (req, res) => {
         const problemPhotos = client.db('ChecklistDB').collection('problemPhotos');
         const {photoId}= req.params
         const photos = await problemPhotos.find({checklistId: Number(photoId)}).toArray()
         sendRes(res, false, 'getPhotos', photos)
     },
+
     latestPhotos: async (req,res) => {
         const lastesPhotos = client.db('ChecklistDB').collection('problemPhotos');
         const historyIdCounter = client.db('ChecklistDB').collection('historyIdCounter');
@@ -433,21 +423,21 @@ module.exports = {
         const latestHistoryItemPhotos = await lastesPhotos.find({checklistId: historyItemId.seq - 1}).toArray()
         sendRes(res, false, 'lastestPhotos', latestHistoryItemPhotos)
     },
+
     deletePhoto: async (req, res) => {
         const photos = client.db('ChecklistDB').collection('problemPhotos');
         const {photoId} = req.params
         await photos.findOneAndDelete({photoId})
         res.send({success: true})
     },
+
     uploadPhoto: async (req, res) => {
         const photos = client.db('ChecklistDB').collection('problemPhotos');
-
-       const uploadedPhoto = await photos.findOneAndUpdate(
+        const uploadedPhoto = await photos.findOneAndUpdate(
             { checklistId: req.body.checklistId, photoId: req.body.photoId},
             { $set: { photo: req.body.photo } },
             { upsert: true }
           );
         sendRes(res, false, 'uploadPhoto', uploadedPhoto)
     },
-
 }

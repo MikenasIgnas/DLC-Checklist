@@ -1,25 +1,24 @@
 /* eslint-disable max-len */
-import React                            from 'react'
-import {Input, Form, Typography, Modal, ConfigProvider} from 'antd'
-import { useAppDispatch, useAppSelector }               from '../../store/hooks'
-import { DeleteOutlined, EyeOutlined }  from '@ant-design/icons'
-import { get }                          from '../../Plugins/helpers'
-import { useCookies }                   from 'react-cookie'
-import { setChecklistPhotos } from '../../auth/FetchedDataReducer/fetchedDataReducer'
-import PhotoUploader from '../PhotoUploader/PhotoUploader'
-import PreviewModal from './PreviewModal'
+import React                                      from 'react'
+import {Input, Form, Typography, ConfigProvider}  from 'antd'
+import { useAppDispatch, useAppSelector }         from '../../store/hooks'
+import { DeleteOutlined, EyeOutlined }            from '@ant-design/icons'
+import { get }                                    from '../../Plugins/helpers'
+import { useCookies }                             from 'react-cookie'
+import { setChecklistPhotos }                     from '../../auth/FetchedDataReducer/fetchedDataReducer'
+import PhotoUploader                              from '../PhotoUploader/PhotoUploader'
+import PreviewModal                               from './PreviewModal'
 
 const { TextArea } = Input
 
 type AreaProblemsInputsProps = {
-  reaction:     string | undefined;
-  name:         number;
-  edit:         boolean;
-  dutiesId:     number | undefined
+  reaction:     string | undefined,
+  name:         number,
+  edit:         boolean,
+  dutiesId:     number | undefined,
 };
 
 const HistoryProblemInputs = ({ reaction,name, edit, dutiesId }:AreaProblemsInputsProps) => {
-
   const dispatch =                                useAppDispatch()
   const defaultTheme =                            useAppSelector((state) => state.theme.value)
   const checklistPhotos =                         useAppSelector((state)=> state.fetchedData.checklistPhotos)
@@ -37,6 +36,7 @@ const HistoryProblemInputs = ({ reaction,name, edit, dutiesId }:AreaProblemsInpu
       setIsPhotoUploaded(false)
     }
   }
+
   return (
     <div className='AreaProblemsInputsContainer'>
       <div className='AreaProblemsInputsContainer'>

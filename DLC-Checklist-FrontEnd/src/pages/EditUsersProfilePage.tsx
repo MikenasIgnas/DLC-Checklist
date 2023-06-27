@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
-import React                                          from 'react'
+import React                                                          from 'react'
 import { Button, Card, ConfigProvider, Form, Input, Select, message } from 'antd'
-import { get, post }                                  from '../Plugins/helpers'
-import { useAppDispatch, useAppSelector }             from '../store/hooks'
-import { setUsername }                                from '../auth/AuthReducer/reducer'
-import { useCookies }                                 from 'react-cookie'
-import { TokenType }                                  from '../types/globalTypes'
-import jwt_decode                                     from 'jwt-decode'
-import SuccessMessage                                 from '../components/ChhecklistBody/SuccessMessage'
+import { get, post }                                                  from '../Plugins/helpers'
+import { useAppDispatch, useAppSelector }                             from '../store/hooks'
+import { setUsername }                                                from '../auth/AuthReducer/reducer'
+import { useCookies }                                                 from 'react-cookie'
+import { TokenType }                                                  from '../types/globalTypes'
+import jwt_decode                                                     from 'jwt-decode'
+import SuccessMessage                                                 from '../components/ChhecklistBody/SuccessMessage'
 
 const formItemLayout = {
   labelCol: {
@@ -40,6 +40,7 @@ const EditUserProfilePage = () => {
   const defaultTheme =                            useAppSelector((state)=> state.theme.value)
   const [loginError, setLoginError] =             React.useState(false)
   const [errorMessage, setErrorMessage] =         React.useState('')
+
   React.useEffect(() => {
     (async () => {
       try{
@@ -106,8 +107,6 @@ const EditUserProfilePage = () => {
     }
   }
 
-
-  //#1e1e1e
   return (
     <div className='CreateUserPageContainer'>
       <ConfigProvider theme = {{

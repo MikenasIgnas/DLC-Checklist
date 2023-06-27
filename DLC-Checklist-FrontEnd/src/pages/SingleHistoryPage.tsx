@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React                                                                                                               from 'react'
 import { useParams, useSearchParams }                                                                                      from 'react-router-dom'
-import { ConfigProvider, Tabs }                                                                                                            from 'antd'
+import { ConfigProvider, Tabs }                                                                                            from 'antd'
 import { get }                                                                                                             from '../Plugins/helpers'
 import { useAppDispatch, useAppSelector }                                                                                  from '../store/hooks'
 import {resetReducer, setArea, setPossibleProblems, setRoute, setTodo,setFilledData, setProblemCount, setChecklistPhotos}  from '../auth/FetchedDataReducer/fetchedDataReducer'
@@ -72,9 +72,6 @@ const SingleHistoryPage = () => {
     return <Loader />
   }
 
-  const onTabChange = (key: string) => {
-    setSearchParams(`tab=${key}`)
-  }
   const tabItems = routes ? [filledUser, ...routes] : []
 
   return (
@@ -89,7 +86,7 @@ const SingleHistoryPage = () => {
 
         <Tabs
           tabPosition={isDesktop ? 'top' : 'left'}
-          onChange={onTabChange}
+          onChange={(key) => setSearchParams(`tab=${key}`) }
           defaultActiveKey={tabUrlParam as string}
           type='line'
           className='Tab'

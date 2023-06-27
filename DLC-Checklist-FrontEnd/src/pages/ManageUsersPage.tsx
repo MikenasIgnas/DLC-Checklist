@@ -11,9 +11,9 @@ import { UserType }                   from '../types/globalTypes'
 
 
 const ManageUsersPage = () => {
-  const [users, setUsers] =   React.useState<UserType[]>([])
+  const [users, setUsers] =       React.useState<UserType[]>([])
   const [loading, setLoading] =   React.useState(false)
-  const [cookies] =           useCookies(['access_token'])
+  const [cookies] =               useCookies(['access_token'])
 
 
   React.useEffect(() => {

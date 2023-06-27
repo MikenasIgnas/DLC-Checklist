@@ -5,7 +5,6 @@ import { useAppSelector }               from '../store/hooks'
 import { useSearchParams }              from 'react-router-dom'
 import { LeftOutlined, RightOutlined }  from '@ant-design/icons'
 
-
 type ChecklistNavigationButtonsProps = {
     previousPage: () => void;
 }
@@ -13,8 +12,8 @@ type ChecklistNavigationButtonsProps = {
 const ChecklistNavigationButtons = ({previousPage}:ChecklistNavigationButtonsProps) => {
   const totalRoomsInArea =        useAppSelector((state) => state.route.totalRoomsInArea[state.route.routeNumber - 1])
   const [searchParams] =          useSearchParams()
+  const defaultTheme =            useAppSelector((state) => state.theme.value)
   const currentProgressUrlParam = searchParams.get('progress')
-  const defaultTheme =  useAppSelector((state) => state.theme.value)
   return (
     <div style={{backgroundColor: defaultTheme ? '#1e1e1e' : 'white'}} className='ButtonConainer'>
       <Button icon={<LeftOutlined/>} type='link' onClick={previousPage}>Back</Button>

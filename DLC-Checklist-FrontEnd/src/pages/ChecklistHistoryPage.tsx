@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 
 import React                                                      from 'react'
-import { Link }                                                   from 'react-router-dom'
-import { Button, Input, InputRef, Space, Table, ConfigProvider }  from 'antd'
+import { Link, useSearchParams }                                                   from 'react-router-dom'
+import { Button, Input, InputRef, Space, Table, ConfigProvider, Pagination }  from 'antd'
 import { get }                                                    from '../Plugins/helpers'
 import { HistoryDataType, TokenType }                             from '../types/globalTypes'
 import { useAppSelector }                                         from '../store/hooks'
@@ -16,22 +16,28 @@ import jwt_decode                                                 from 'jwt-deco
 const ChecklistHistoryPage = () => {
   type DataIndex = keyof HistoryDataType;
 
-  const [cookies] =                                     useCookies(['access_token'])
-  const decodedToken:TokenType =                        jwt_decode(cookies.access_token)
-  const defaultPageTheme =                              useAppSelector((state) => state.theme.value)
-  const [filledData, setFilledData] =                   React.useState<HistoryDataType[]>([])
-  const [loading, setLoading] =                         React.useState(false)
-  const [searchText, setSearchText] =                   React.useState('')
-  const [searchedColumn, setSearchedColumn] =           React.useState('')
-  const searchInput =                                   React.useRef<InputRef>(null)
+  const [cookies] =                                           useCookies(['access_token'])
+  const decodedToken:TokenType =                              jwt_decode(cookies.access_token)
+  const defaultPageTheme =                                    useAppSelector((state) => state.theme.value)
+  const [filledData, setFilledData] =                         React.useState<HistoryDataType[]>([])
+  const [loading, setLoading] =                               React.useState(false)
+  const [searchText, setSearchText] =                         React.useState('')
+  const [searchedColumn, setSearchedColumn] =                 React.useState('')
+  const searchInput =                                         React.useRef<InputRef>(null)
+  const [searchParams, setSearchParams] =                     useSearchParams()
+  const [totalHistoryEntriesCount, setTotalHistoryEntries] =  React.useState<number| undefined>(undefined)
+  const page =                                                searchParams.get('page')
+  const limit =                                               searchParams.get('limit')
+
   React.useEffect(() => {
     (async () => {
       try{
         setLoading(true)
-        const filledChecklistData = await get('getHistoryData', cookies.access_token)
-        const hitosryEntriesCount = await get('getTotalHistoryData', cookies.access_token)
-        if(!filledChecklistData.error && !hitosryEntriesCount.error){
-          setFilledData(filledChecklistData.data)
+        const totalHistoryEntries = await get('totalHistoryEntries', cookies.access_token)
+        const hisotoryData =        await get(`checklistHistoryData?page=${page}&limit=${limit}`, cookies.access_token)
+        if(!hisotoryData.error && !totalHistoryEntries.error){
+          setTotalHistoryEntries(totalHistoryEntries.data)
+          setFilledData(hisotoryData.results)
           window.scrollTo(0, 0)
           setLoading(false)
         }
@@ -39,7 +45,11 @@ const ChecklistHistoryPage = () => {
         console.log(err)
       }
     })()
-  }, [])
+  }, [page, totalHistoryEntriesCount, limit, cookies.access_token])
+
+  const changePage = (page: number, pageSize: number) => {
+    setSearchParams(`page=${page}&limit=${pageSize}&menu=2`)
+  }
 
   const handleSearch = (
     selectedKeys: string[],
@@ -262,7 +272,6 @@ const ChecklistHistoryPage = () => {
         },
       }}>
         <Table
-
           rowKey={(record) =>record.id}
           scroll={{x: '5px'}}
           style={{overflowX: 'auto', width: '99%', borderTopRightRadius: '0px'}}
@@ -270,7 +279,16 @@ const ChecklistHistoryPage = () => {
           dataSource={filledData}
           bordered
           loading={loading}
+          pagination={false}
         />
+        {totalHistoryEntriesCount !== undefined && (
+          <Pagination
+            defaultCurrent={Number(page)}
+            onChange={changePage}
+            total={totalHistoryEntriesCount}
+            showSizeChanger
+          />
+        )}
       </ConfigProvider>
     </div>
   )

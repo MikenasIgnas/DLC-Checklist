@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-return-assign */
 import { setProgressTracker, setRouteNumber } from '../../auth/RouteReducer/routeReducer'
-import { ThunkType } from '../decrementThunks/thunksDecrement'
+import { ThunkType }                          from '../decrementThunks/thunksDecrement'
 
 export const onIncrementProgressTracker = (): ThunkType<{ newRouteNumber: number, newProgressTracker: number }> => (dispatch, getState) => {
   const { route: { totalRoomsInArea, routeNumber, progressTracker } } = getState()

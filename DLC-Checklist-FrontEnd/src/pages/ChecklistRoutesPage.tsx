@@ -6,7 +6,7 @@
 
 import React                                                                                                    from 'react'
 import { useSearchParams, useNavigate }                                                                         from 'react-router-dom'
-import { Form, Card, message, ConfigProvider}                                                                                   from 'antd'
+import { Form, Card, message}                                                                                   from 'antd'
 import { get, getCurrentDate, getCurrentTime, post }                                                            from '../Plugins/helpers'
 import { useAppDispatch, useAppSelector }                                                                       from '../store/hooks'
 import { setProgressTracker, setRouteNumber }                                                                   from '../auth/RouteReducer/routeReducer'

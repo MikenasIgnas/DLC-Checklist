@@ -13,9 +13,9 @@ dutiesId:   number | undefined
 }
 
 type PhotoType = {
-  checklistId: number,
-  photo:string,
-  photoId:string,
+  checklistId:  number,
+  photo:        string,
+  photoId:      string,
 }
 
 const PreviewModal = ({open, onOk, onCancel, dutiesId}:PreviewModalProps) => {

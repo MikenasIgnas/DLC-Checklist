@@ -33,7 +33,7 @@ function getItem(
 }
 
 type PageLayoutProps = {
-  children:   React.ReactNode
+  children:   React.ReactNode,
 }
 
 const PageLayout = ({children}:PageLayoutProps) => {
@@ -99,7 +99,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
 
   const menuItems =  React.useMemo(() => [
     getItem(<Link to={'/?menu=1'} onClick={startChecklist} > Start Checklist </Link>, '1'),
-    getItem(<Link to={'/getHistoryData?menu=2'}> Checklist History </Link>, '2'),
+    getItem(<Link to={'/checklistHistoryData?page=1&limit=10&menu=2'}> Checklist History </Link>, '2'),
   ],[username])
 
   const menuItems2 = React.useMemo(() => [
@@ -114,7 +114,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
 
   const subMenuItems: MenuItem[] = React.useMemo(() => [
     getItem(<Link onClick={startChecklist} to={'/?menu=1'}>Checklist</Link>, '1',<UnorderedListOutlined />),
-    getItem(<Link to={'/getHistoryData?menu=2'} >Checklist History</Link>, '2', <HistoryOutlined/>),
+    getItem(<Link to={'/checklistHistoryData?page=1&limit=10&menu=2'} >Checklist History</Link>, '2', <HistoryOutlined/>),
     isAdmin ? getItem(<div>Manage Users</div>, '3', <TeamOutlined/>, [
       getItem(<Link to={'/ManageUsers?menu=4'}>All Users</Link>,'4',<UserOutlined/>),
       getItem(<Link to={'/CreateUser?menu=7'}>Create User</Link>,'7',<UserAddOutlined/>),

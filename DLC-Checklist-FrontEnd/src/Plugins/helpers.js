@@ -1,7 +1,7 @@
 
 const get = async (url, token) => {
   try {
-    const response = await fetch(`http://10.81.7.29:4000/${url}`, {
+    const response = await fetch(`http://192.168.56.1:4000/${url}`, {
       method:  'GET',
       headers: {
         'Content-Type':  'application/json',
@@ -29,7 +29,7 @@ const validateUser = async (url, data) => {
     body: JSON.stringify(data),
   }
 
-  const response = await fetch(`http://10.81.7.29:4000/${url}`, options)
+  const response = await fetch(`http://192.168.56.1:4000/${url}`, options)
   return response.json()
 
 }
@@ -45,7 +45,7 @@ const post = async (url, data, token) => {
     body: JSON.stringify(data),
   }
 
-  const response = await fetch(`http://10.81.7.29:4000/${url}`, options)
+  const response = await fetch(`http://192.168.56.1:4000/${url}`, options)
   return response.json()
 }
 

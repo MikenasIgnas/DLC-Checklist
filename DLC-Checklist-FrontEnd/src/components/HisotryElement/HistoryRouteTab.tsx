@@ -11,15 +11,15 @@ import { setProblemCount }                  from '../../auth/FetchedDataReducer/
 import SuccessMessage                       from '../ChhecklistBody/SuccessMessage'
 
 type AreasComponentProps = {
-  routeID:  number | undefined
-  itemId:   string | undefined
-  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>
+  routeID:      number | undefined,
+  itemId:       string | undefined,
+  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>,
 };
-
 
 type ValuesType = {
   [key: string]: Record<string, boolean>[];
 }
+
 const HistoryRouteTab = ({ routeID, itemId, setIsUpdated }:AreasComponentProps) => {
   const { id } =                        useParams()
   const [cookies] =                     useCookies(['access_token'])

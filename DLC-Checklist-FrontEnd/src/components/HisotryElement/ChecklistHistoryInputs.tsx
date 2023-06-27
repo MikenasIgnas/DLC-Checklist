@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
-import React                  from 'react'
-import { ConfigProvider, Form, Radio }        from 'antd'
-import HistoryProblemInputs   from './HistoryProblemInputs'
-import { useAppSelector } from '../../store/hooks'
+import React                            from 'react'
+import { ConfigProvider, Form, Radio }  from 'antd'
+import HistoryProblemInputs             from './HistoryProblemInputs'
+import { useAppSelector }               from '../../store/hooks'
 
 type InputProps = {
   reaction:         string | undefined,
@@ -14,8 +14,9 @@ type InputProps = {
     fieldKey?:      number | undefined,
   },
   radioValues:      { [key: string] : boolean; } | undefined,
-  edit:             boolean
+  edit:             boolean,
 };
+
 const ChecklistHisotoryInputs = ({
   reaction,
   possibleProblems,
@@ -26,7 +27,7 @@ const ChecklistHisotoryInputs = ({
   edit,
 }:InputProps) => {
   const [radioButtonValue, setRadioButtonValue] = React.useState(false)
-  const defaultTheme =                useAppSelector((state) => state.theme.value)
+  const defaultTheme =                            useAppSelector((state) => state.theme.value)
 
   return (
     <div style={{backgroundColor: defaultTheme ? '#1e1e1e' : ''}} className='ChecklistHistoryInputsMainContainer'>
@@ -37,13 +38,11 @@ const ChecklistHisotoryInputs = ({
             colorBgContainerDisabled: defaultTheme ? 'lightgray' : 'white',
           },
         }}>
-
           <Form.Item
             {...rest}
             name={[name, Number(dutiesId)]}
             className='ChecklistFormItem'
           >
-
             <Radio.Group className='RadioGroup'>
               <Radio style={{color: defaultTheme ? 'white' : 'black'}} onChange={() => setRadioButtonValue(false)} disabled={!edit} value={false}>No</Radio>
               <Radio style={{color: defaultTheme ? 'white' : 'black'}} onChange={() => setRadioButtonValue(true)} disabled={!edit} value={true}>Yes</Radio>

@@ -6,7 +6,6 @@ import { useAppSelector }           from '../../store/hooks'
 
 const content = () => {
   const routeNumber = useAppSelector((state) => state.route.routeNumber)
-
   return (
     <img style={{width: '1000px'}} src={`Images/RouteMap${routeNumber}.png`} alt='err' />
   )
@@ -14,6 +13,7 @@ const content = () => {
 
 const RouteMapPopover = () => {
   const routeNumber = useAppSelector((state) => state.route.routeNumber)
+
   return (
     <Space className='RouteMapContainer' wrap>
       <Popover content={content} title={`Maršrutas: ${routeNumber}`} trigger='click'>

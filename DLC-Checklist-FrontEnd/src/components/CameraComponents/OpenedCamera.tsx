@@ -5,12 +5,12 @@ import { CameraType, Camera }   from '../../Camera'
 import styled                   from 'styled-components'
 import Resizer                  from 'react-image-file-resizer'
 type OpenedCameraProps = {
-    showCamera:             boolean;
-    setShowCamera:          React.Dispatch<React.SetStateAction<boolean>>;
-    camera:                 React.RefObject<CameraType>;
-    setNumberOfCameras:     React.Dispatch<React.SetStateAction<number>>;
-    numberOfCameras:        number;
-    onTakePhoto:            (photo: string) => void
+    showCamera:             boolean,
+    setShowCamera:          React.Dispatch<React.SetStateAction<boolean>>,
+    camera:                 React.RefObject<CameraType>,
+    setNumberOfCameras:     React.Dispatch<React.SetStateAction<number>>,
+    numberOfCameras:        number,
+    onTakePhoto:            (photo: string) => void,
 }
 
 const Button = styled.button`

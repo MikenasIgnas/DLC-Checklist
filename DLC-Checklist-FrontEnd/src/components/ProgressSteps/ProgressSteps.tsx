@@ -1,11 +1,9 @@
 /* eslint-disable max-len */
-import React                from 'react'
-import {  ConfigProvider, Steps }           from 'antd'
-import { useSearchParams }  from 'react-router-dom'
-import { useAppSelector }   from '../../store/hooks'
-import { RouteType }        from '../../types/globalTypes'
-
-
+import React                        from 'react'
+import {  ConfigProvider, Steps }   from 'antd'
+import { useSearchParams }          from 'react-router-dom'
+import { useAppSelector }           from '../../store/hooks'
+import { RouteType }                from '../../types/globalTypes'
 
 const ProgressSteps = () => {
   const [searchParams] =          useSearchParams()
@@ -25,7 +23,9 @@ const ProgressSteps = () => {
     title: <div style={{color: defaultPageTheme ? 'white': 'black'}}>{obj.title}</div>,
     ...(obj.id === Number(currentRoute) ? { description: <div style={{color: defaultPageTheme ? 'white': 'black'}}>{`Patalpa: ${premiseNameItem?.roomName}` }</div> } : {}),
   })
+
   const routeStepItem =           routes?.map(addRouteDescription)
+
   return (
     <ConfigProvider theme={{
       token: {
@@ -34,7 +34,6 @@ const ProgressSteps = () => {
         colorSplit:       defaultTheme ? '#9b9b9b' : '#0505050f',
       },
     }}>
-
       <Steps
         size={'default'}
         current={routesNumber - 1}

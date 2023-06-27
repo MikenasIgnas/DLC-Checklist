@@ -21,7 +21,7 @@ const {
     postFilledChecklistData,
     getSingleHistoryELementData,
     updateFilledChecklistData,
-    getTotalHistoryData,
+    totalHistoryEntries,
     getTotalAreasCount,
     FindUser,
     getAllUsers,
@@ -48,7 +48,6 @@ const {
     uploadPhoto,
 } = require("../controllers/mainController")
 
-
 router.post("/logInUser",                       login)
 router.post("/createUser",                      verifyToken, registerValidation, createUser)
 router.post('/postChecklistData',               verifyToken, postFilledChecklistData)
@@ -66,7 +65,6 @@ router.post("/postLastestAndCurrentPhotos",     verifyToken, postLastestAndCurre
 router.post("/postLatestPhotos",                verifyToken, postLatestPhotos)
 router.post("/uploadPhoto",                     verifyToken, uploadPhoto)
 
-
 router.get("/routeData",                        verifyToken, routeData)
 router.get("/areasData",                        verifyToken, areasData)
 router.get("/todoData",                         verifyToken, todoData)
@@ -76,7 +74,7 @@ router.get('/FindUser/:secret',                 verifyToken, FindUser)
 router.get('/FindSingleUser/:secret',           verifyToken, FindSingleUser)
 router.get('/getAllUsers',                      verifyToken, getAllUsers)
 router.get('/getArchivedUsers',                 verifyToken, getArchivedUsers)
-router.get("/getTotalHistoryData",              verifyToken, getTotalHistoryData)
+router.get("/totalHistoryEntries",              verifyToken, totalHistoryEntries)
 router.get("/getTotalAreasCount",               verifyToken, getTotalAreasCount)
 router.get("/deleteUser/:secret",               verifyToken, deleteUser)
 router.get("/deleteHistoryItem/:_id",           verifyToken, deleteHistoryItem)
@@ -85,6 +83,9 @@ router.get('/getHistoryData',                   verifyToken, getHistoryData)
 router.get('/getPhotos/:photoId',               verifyToken, getPhotos)
 router.get('/latestPhotos',                     verifyToken, latestPhotos)
 router.get('/deletePhoto/:photoId',             verifyToken, deletePhoto)
+router.get('/checklistHistoryData',             verifyToken, paginatedResults(FilledChecklistData), (req,res) => {
+  res.json(res.paginatedResults)
+})
   
   function paginatedResults(model) {
     const checklistHistoryData = client.db('ChecklistDB').collection('checklistHistoryData');
@@ -93,16 +94,13 @@ router.get('/deletePhoto/:photoId',             verifyToken, deletePhoto)
       const limit = parseInt(req.query.limit)
       const startIndex = (page - 1) * limit
       const endIndex = page * limit
-  
       const results = {}
-  
       if (endIndex < await model.countDocuments().exec()) {
         results.next = {
           page: page + 1,
           limit: limit
         }
       }
-      
       if (startIndex > 0) {
         results.previous = {
           page: page - 1,
@@ -110,7 +108,7 @@ router.get('/deletePhoto/:photoId',             verifyToken, deletePhoto)
         }
       }
       try {
-        results.results = await checklistHistoryData.find().toArray()
+        results.results = await checklistHistoryData.find().skip(startIndex).sort({ _id: -1 }).limit(limit).toArray();
         res.paginatedResults = results
         next()
       } catch (e) {
@@ -118,7 +116,6 @@ router.get('/deletePhoto/:photoId',             verifyToken, deletePhoto)
       }
     }
   }
-
 
 module.exports = router
 

@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
-import React                     from 'react'
-import { ConfigProvider, Drawer, Menu } from 'antd'
-import { CloseOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons'
-import { ItemType } from 'antd/es/menu/hooks/useItems'
-import { useAppSelector } from '../../store/hooks'
-import { Link } from 'react-router-dom'
+import React                                            from 'react'
+import { ConfigProvider, Drawer, Menu }                 from 'antd'
+import { CloseOutlined, LogoutOutlined, MenuOutlined }  from '@ant-design/icons'
+import { ItemType }                                     from 'antd/es/menu/hooks/useItems'
+import { useAppSelector }                               from '../../store/hooks'
+import { Link }                                         from 'react-router-dom'
 
 type MobileHeaderProps = {
   headerClass:  string,
-  menuItems:    ItemType[]
-  menuItems2:   ItemType[]
-  Logout: () => Promise<void>
+  menuItems:    ItemType[],
+  menuItems2:   ItemType[],
+  Logout: () => Promise<void>,
 }
 
 const MobileHeader = ({menuItems2, Logout}: MobileHeaderProps) => {
@@ -18,15 +18,6 @@ const MobileHeader = ({menuItems2, Logout}: MobileHeaderProps) => {
   const [open, setOpen] = React.useState(false)
   const userName =        useAppSelector((state)=> state.auth.username)
   const defaultTheme =    useAppSelector((state)=> state.theme.value)
-
-  const showDrawer = () => {
-    setOpen(true)
-  }
-
-  const onClose = () => {
-    setOpen(false)
-  }
-
 
   return (
     <div style={{
@@ -39,7 +30,7 @@ const MobileHeader = ({menuItems2, Logout}: MobileHeaderProps) => {
       padding:         '5px',
     }}>
       <div>
-        <MenuOutlined style={{fontSize: '18px', padding: '15px' }} onClick={showDrawer} />
+        <MenuOutlined style={{fontSize: '18px', padding: '15px' }} onClick={() => setOpen(true)} />
       </div>
       <div style={{display: 'flex', alignItems: 'center', width: '230px', justifyContent: 'space-between'}}>
         <Link to={'/EditUsersProfile'}> {`Darbuotojas: ${userName}`}</Link>
@@ -53,7 +44,7 @@ const MobileHeader = ({menuItems2, Logout}: MobileHeaderProps) => {
       }}>
         <Drawer
           placement={'left'}
-          onClose={onClose}
+          onClose={() => setOpen(false)}
           open={open}
           closeIcon={<CloseOutlined style={{fontSize: '16px', marginLeft: '10px'}} />}
           style={{

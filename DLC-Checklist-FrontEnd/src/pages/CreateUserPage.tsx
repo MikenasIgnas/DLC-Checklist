@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import { Button, Card, ConfigProvider, Form, Input, Select, message }   from 'antd'
-import React                                            from 'react'
-import { getCurrentDate, post }                         from '../Plugins/helpers'
-import SuccessMessage                                   from '../components/ChhecklistBody/SuccessMessage'
-import { useNavigate }                                  from 'react-router-dom'
-import { useAppSelector }                               from '../store/hooks'
-import { useCookies }                                   from 'react-cookie'
+import React                                                            from 'react'
+import { getCurrentDate, post }                                         from '../Plugins/helpers'
+import SuccessMessage                                                   from '../components/ChhecklistBody/SuccessMessage'
+import { useNavigate }                                                  from 'react-router-dom'
+import { useAppSelector }                                               from '../store/hooks'
+import { useCookies }                                                   from 'react-cookie'
 
 const formItemLayout = {
   labelCol: {
@@ -18,7 +18,6 @@ const formItemLayout = {
   },
 }
 
-
 type FormValuesType = {
     username:     string,
     email:        string,
@@ -27,7 +26,7 @@ type FormValuesType = {
     passwordTwo:  string,
     status:       string,
     dateCreated:  string,
-    defaultTheme: boolean
+    defaultTheme: boolean,
 }
 
 const CreateUserPage = () => {
@@ -37,7 +36,7 @@ const CreateUserPage = () => {
   const navigate =                          useNavigate()
   const [loginError, setLoginError] =       React.useState(false)
   const [errorMessage, setErrorMessage] =   React.useState('')
-  const defaultTheme =                        useAppSelector((state) => state.theme.value)
+  const defaultTheme =                      useAppSelector((state) => state.theme.value)
 
   const onFinish = async (values: FormValuesType) => {
     try{

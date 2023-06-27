@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
-import React                    from 'react'
+import React                                    from 'react'
 import {Card, Collapse, ConfigProvider, Form}   from 'antd'
-import { useAppSelector }       from '../../store/hooks'
-import ChecklistHisotoryInputs  from './ChecklistHistoryInputs'
-import CollapsePannelHeader     from '../CollapsePannelHeader/CollapsePannelHeader'
-import ChecklistHistoryItemHeader from './ChecklistHistoryItemHeader'
+import { useAppSelector }                       from '../../store/hooks'
+import ChecklistHisotoryInputs                  from './ChecklistHistoryInputs'
+import CollapsePannelHeader                     from '../CollapsePannelHeader/CollapsePannelHeader'
+import ChecklistHistoryItemHeader               from './ChecklistHistoryItemHeader'
 
 type ProblemsComponentProps = {
   routeID:        number | undefined,

@@ -1,10 +1,6 @@
 /* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {
-  PossibleProblemsType, RouteType, AreaType, TodoType, HistoryDataType, ChecklistPhotosType,
-} from '../../types/globalTypes'
+import { createSlice, PayloadAction }                                                                 from '@reduxjs/toolkit'
+import { PossibleProblemsType, RouteType, AreaType, TodoType, HistoryDataType, ChecklistPhotosType }  from '../../types/globalTypes'
 
 interface PossibleProblemsReducer {
     possibleProblems:       PossibleProblemsType[] | null,

@@ -9,13 +9,14 @@ import { Upload, UploadProps, message } from 'antd'
 import { useAppSelector }               from '../../store/hooks'
 
 type PhotoUploaderProps = {
-    dutiesId:           number | undefined;
-    setIsPhotoUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+    dutiesId:           number | undefined,
+    setIsPhotoUploaded: React.Dispatch<React.SetStateAction<boolean>>,
 }
 const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => {
-  const [cookies] = useCookies(['access_token'])
-  const { id } =    useParams()
-  const defaultTheme = useAppSelector((state) => state.theme.value)
+  const [cookies] =     useCookies(['access_token'])
+  const { id } =        useParams()
+  const defaultTheme =  useAppSelector((state) => state.theme.value)
+
   const props: UploadProps = {
     name:    'file',
     action:  'http://10.81.7.29/uploadPhoto',
@@ -23,7 +24,6 @@ const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => 
       authorization: 'authorization-text',
     },
     onChange(info) {
-
       if (info.file.status === 'done') {
         if (info.file.originFileObj) {
           const reader = new FileReader()
@@ -43,7 +43,6 @@ const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => 
                   photoId:     String(dutiesId),
                   checklistId: Number(id),
                 }
-
                 const uploadPhoto =  await post('uploadPhoto', uploadedPhoto, cookies.access_token)
                 setIsPhotoUploaded(!uploadPhoto.error)
               },
@@ -58,6 +57,7 @@ const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => 
       }
     },
   }
+
   return (
     <Upload showUploadList={false} {...props} style={{width: '19%', marginLeft: '15px'}}>
       <UploadOutlined style={{marginLeft: '15px', marginRight: '15px', cursor: 'pointer', color: defaultTheme ? 'white' : 'black'}}/>

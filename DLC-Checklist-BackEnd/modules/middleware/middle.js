@@ -16,16 +16,15 @@ module.exports  = {
             if(passwordOne !== passwordTwo) return sendRes(res, true, "password should match", null)
             if(passwordOne.length < 5) return sendRes(res, true, 'Password should be at least 5 characters long')
             if(!passwordOne) return sendRes(res, true, "password should be longer than 0", null)
-
         next()
     },
+
     secretValidate: async (req, res, next) => {
         const {secret} = req.params
         const userExists = await UserRegisterSchema.findOne({secret})
         if(!userExists) return  sendRes(res, true, "bad user secret", null)
         next()
     },
-
 
     passwordChangeValidation: async (req, res, next) => {
         const {passwordOne, passwordTwo} = req.body

@@ -31,7 +31,7 @@ const ChecklistBody = () => {
             <Form.List
               name={el?.id}
               key={el?.id}
-              initialValue={ data ? JSON.parse(data).values[el?.id] : dutiesInitialVals?.map((values) => ({ [values?.id]: false }))
+              initialValue={ data ? JSON.parse(data).values[el?.id] : dutiesInitialVals?.map((values) => ({ [values?.id]: null }))
               }>
               {(fields) => (
                 <div className='CardContent' key={el?.id}>
