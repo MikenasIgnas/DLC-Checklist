@@ -1,8 +1,6 @@
 
 const get = async (url, token) => {
   try {
-    // const response = await fetch(`http://10.81.7.29:4000/${url}`
-    // const response = await fetch(`http://192.168.56.1:4000/${url}`
     const response = await fetch(`http://10.81.7.29:4000/${url}`, {
       method:  'GET',
       headers: {

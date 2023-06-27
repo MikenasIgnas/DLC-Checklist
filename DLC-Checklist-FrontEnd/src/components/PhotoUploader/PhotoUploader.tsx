@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
-import React            from 'react'
-import { post }         from '../../Plugins/helpers'
-import { useCookies }   from 'react-cookie'
-import Resizer          from 'react-image-file-resizer'
-import { useParams }    from 'react-router-dom'
-import { UploadOutlined } from '@ant-design/icons'
+import React                            from 'react'
+import { post }                         from '../../Plugins/helpers'
+import { useCookies }                   from 'react-cookie'
+import Resizer                          from 'react-image-file-resizer'
+import { useParams }                    from 'react-router-dom'
+import { UploadOutlined }               from '@ant-design/icons'
 import { Upload, UploadProps, message } from 'antd'
-import { useAppSelector } from '../../store/hooks'
+import { useAppSelector }               from '../../store/hooks'
 
 type PhotoUploaderProps = {
     dutiesId:           number | undefined;
@@ -19,7 +19,6 @@ const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => 
   const props: UploadProps = {
     name:    'file',
     action:  'http://10.81.7.29/uploadPhoto',
-    // action:  'http://192.168.56.1:4000/uploadPhoto',
     headers: {
       authorization: 'authorization-text',
     },
@@ -59,7 +58,6 @@ const PhotoUploader = ({ dutiesId, setIsPhotoUploaded }: PhotoUploaderProps) => 
       }
     },
   }
-
   return (
     <Upload showUploadList={false} {...props} style={{width: '19%', marginLeft: '15px'}}>
       <UploadOutlined style={{marginLeft: '15px', marginRight: '15px', cursor: 'pointer', color: defaultTheme ? 'white' : 'black'}}/>

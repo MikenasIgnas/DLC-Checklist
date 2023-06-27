@@ -101,21 +101,12 @@ const OpenedCamera = ({
               const canvas = document.createElement('canvas')
               const context = canvas.getContext('2d')
               if(context){
-
-                // Flip the image horizontally
-
-
-
-
                 canvas.width = img.width
                 canvas.height = img.height
                 context.translate(canvas.width, 0)
                 context.scale(-1, 1)
                 context.drawImage(img, 0, 0)
-
-                // Convert the canvas back to a base64-encoded image
                 const flippedPhoto = canvas.toDataURL('image/jpeg')
-
                 onTakePhoto(flippedPhoto)
                 setShowCamera(false)
               }

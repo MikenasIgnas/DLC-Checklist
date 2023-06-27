@@ -9,8 +9,6 @@ type PhotoViewProps = {
 }
 
 const PhotoView = ({showImage, setShowImage, photo}: PhotoViewProps) => {
-
-
   return (
     <Modal
       centered
