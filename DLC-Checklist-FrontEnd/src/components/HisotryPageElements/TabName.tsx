@@ -13,9 +13,9 @@ const TabName = ({itemId}:TabNameProps) => {
   let routeProblemCount =   0
 
   filteredByRoute?.forEach(obj => {
-    const values = Object.values(obj.values)
+    const values =        Object.values(obj.values)
     const nestedObjects = values.flatMap(arr => arr)
-    const trueValues = nestedObjects.filter(nestedObj => Object.values(nestedObj)[0] === true)
+    const trueValues =    nestedObjects.filter(nestedObj => Object.values(nestedObj)[0] === true)
     routeProblemCount += trueValues.length
   })
 

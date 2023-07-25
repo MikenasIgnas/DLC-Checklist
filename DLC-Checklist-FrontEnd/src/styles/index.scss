@@ -208,6 +208,12 @@ display: flex;
     padding: 30px;
   }
 }
+
+:where(.css-dev-only-do-not-override-htwhyh).ant-card-type-inner .ant-card-body {
+  padding: 8px 8px;
+}
+
+
 :where(.css-dev-only-do-not-override-htwhyh).ant-card {
   box-sizing: border-box;
   margin: 0;
@@ -669,7 +675,6 @@ thead[class*="ant-table-thead"] th{
   
       .Tab{
         width: 98%;
-        padding: 0px;
       }
     }
 
@@ -689,4 +694,9 @@ thead[class*="ant-table-thead"] th{
     cursor: pointer;
     transition: all 0.2s;
 }
+}
+
+.VisitListItem :hover{
+  background-color: rgb(177, 177, 177);
+
 }

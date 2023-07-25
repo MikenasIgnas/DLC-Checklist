@@ -1,11 +1,12 @@
-const isEmail = require("is-email")
-const sendRes = require("../modules/UniversalRes")
-const UserRegisterSchema = require("../../shemas/UserRegisterSchema")
-const jwt = require("jsonwebtoken");
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient('mongodb://10.81.7.29:27017/');
+const isEmail =             require("is-email")
+const sendRes =             require("../modules/UniversalRes")
+const UserRegisterSchema =  require("../../shemas/UserRegisterSchema")
+const jwt =                 require("jsonwebtoken");
+const MongoClient =         require('mongodb').MongoClient;
+const client =              new MongoClient('mongodb://10.81.7.29:27017/');
 require('dotenv').config()
-const config = process.env;
+const config =              process.env;
+
 module.exports  = {
     registerValidation:async (req, res, next) => {
         const users = client.db('ChecklistDB').collection('registeredusers');

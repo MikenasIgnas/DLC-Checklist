@@ -84,3 +84,37 @@ export type ChecklistPhotosType = {
   photo:              string;
   photoId:            string;
 }
+
+export type CompaniesType = {
+  _id:                string;
+  id:                 string;
+  CompanyName:        string;
+}
+
+export type CompaniesSitesType = {
+  _id:                string;
+  id:                 string;
+  CompanyId:          string;
+  AvailableSites:     string;
+}
+
+export type CompaniesPremisesType = {
+  _id:                string;
+  id:                 string;
+  siteId:             string;
+  premiseName:        string;
+}
+export type CompaniesColocationType = {
+  _id:                string;
+  id:                 string;
+  RackNumber:         string;
+  PremiseId:          string;
+  CompanyId:          string;
+}
+
+export type CompaniesEmlployeesType = {
+  _id:                string;
+  id:                 string;
+  CompanyId:          string;
+  employee_name:      string;
+}

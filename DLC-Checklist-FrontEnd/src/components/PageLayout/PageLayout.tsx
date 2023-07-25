@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector }                             from '../.
 import { setUsername, setUsersRole }                                  from '../../auth/AuthReducer/reducer'
 import { setDefaultTheme }                                            from '../../auth/ThemeReducer/ThemeReducer'
 import MobileHeader                                                   from '../MobileHeader/MobileHeader'
-import { HistoryOutlined, LeftOutlined, RightOutlined, SettingOutlined, TeamOutlined, UnorderedListOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
+import { HistoryOutlined, HomeOutlined, LeftOutlined, RightOutlined, SettingOutlined, TeamOutlined, UnorderedListOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -50,7 +50,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
   const [searchParams] =                    useSearchParams()
   const tabUrlParam =                       searchParams.get('menu') as string
   const [isDesktop, setDesktop] =           React.useState(window.innerWidth > 650)
-
+  const [isHomePage, setIsHomePage] =       React.useState(true)
   React.useEffect(() => {
     (async () => {
       try{
@@ -78,6 +78,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
   const startChecklist = async() => {
     const totalHistoryData = await get('getTotalAreasCount', cookies.access_token)
     clearFilleChecklistdData(totalHistoryData)
+    setIsHomePage(false)
   }
 
   const Logout = async() => {
@@ -96,9 +97,18 @@ const PageLayout = ({children}:PageLayoutProps) => {
       dispatch(setDefaultTheme(!res.data.value.defaultTheme))
     }
   }
-
+  const navigateHome = () => {
+    navigate('/')
+    setIsHomePage(true)
+  }
   const menuItems =  React.useMemo(() => [
-    getItem(<Link to={'/?menu=1'} onClick={startChecklist} > Start Checklist </Link>, '1'),
+    getItem(<Link to={'/checklistStartPage?menu=1'} onClick={startChecklist} >DLC Checklist</Link>, '1'),
+    getItem(<Link to={'/DLCJournalStartPage?menu=12'} >DLC Žurnalas</Link>, '12'),
+  ],[username])
+
+  const checklistMenuItems =  React.useMemo(() => [
+    getItem(<HomeOutlined style={{fontSize: '25px'}} onClick={navigateHome} />, '3'),
+    getItem(<Link to={'/checklistStartPage?menu=1'} onClick={startChecklist} > Start Checklist </Link>, '1'),
     getItem(<Link to={'/checklistHistoryData?page=1&limit=10&menu=2'}> Checklist History </Link>, '2'),
   ],[username])
 
@@ -176,7 +186,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
                     <Menu
                       selectedKeys={[tabUrlParam]}
                       mode='horizontal'
-                      items={menuItems}
+                      items={isHomePage ? menuItems : checklistMenuItems}
                     />
                   </Col>
                   <Col span={12}>
@@ -197,7 +207,7 @@ const PageLayout = ({children}:PageLayoutProps) => {
                   </Col>
                 </Row>
               </Header>
-              : <MobileHeader Logout={Logout} menuItems2={subMenuItems} headerClass={'PageLayoutHeaedrMenu'} menuItems={menuItems}/>
+              : <MobileHeader Logout={Logout} menuItems2={subMenuItems} headerClass={'PageLayoutHeaedrMenu'} menuItems={isHomePage ? menuItems : checklistMenuItems}/>
             }
           </ConfigProvider>
           <Content className={defaultTheme ? 'PageLayoutContentDark' : 'PageLayoutContentLight'}>

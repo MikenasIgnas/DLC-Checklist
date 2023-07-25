@@ -1,27 +1,22 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-template-curly-in-string */
-/* eslint-disable no-plusplus */
 /* eslint-disable max-len */
-/* eslint-disable consistent-return */
-
 import React                                                                                                    from 'react'
 import { useSearchParams, useNavigate }                                                                         from 'react-router-dom'
 import { Form, Card, message}                                                                                   from 'antd'
-import { get, getCurrentDate, getCurrentTime, post }                                                            from '../Plugins/helpers'
-import { useAppDispatch, useAppSelector }                                                                       from '../store/hooks'
-import { setProgressTracker, setRouteNumber }                                                                   from '../auth/RouteReducer/routeReducer'
-import { resetReducer, setArea, setPossibleProblems, setRoute, setTodo, setLatestHistoryItem, setLatestPhotos } from '../auth/FetchedDataReducer/fetchedDataReducer'
-import ChecklistBody                                                                                            from '../components/ChhecklistBody/ChecklistBody'
-import CheckilistHeader                                                                                         from '../components/ChecklistHeader/ChecklistHeader'
-import { onIncrementProgressTracker }                                                                           from '../store/incremetnThunks/thunksIncrement'
-import { onDecrementProgressTracker }                                                                           from '../store/decrementThunks/thunksDecrement'
-import FinishModal                                                                                              from '../components/FinishModal/FinishModal'
-import SuccessMessage                                                                                           from '../components/ChhecklistBody/SuccessMessage'
-import ChecklistNavigationButtons                                                                               from '../components/ChecklistNavigationButtons'
+import { get, getCurrentDate, getCurrentTime, post }                                                            from '../../Plugins/helpers'
+import { useAppDispatch, useAppSelector }                                                                       from '../../store/hooks'
+import { setProgressTracker, setRouteNumber }                                                                   from '../../auth/RouteReducer/routeReducer'
+import { resetReducer, setArea, setPossibleProblems, setRoute, setTodo, setLatestHistoryItem, setLatestPhotos } from '../../auth/FetchedDataReducer/fetchedDataReducer'
+import ChecklistBody                                                                                            from '../../components/ChhecklistBody/ChecklistBody'
+import CheckilistHeader                                                                                         from '../../components/ChecklistHeader/ChecklistHeader'
+import { onIncrementProgressTracker }                                                                           from '../../store/incremetnThunks/thunksIncrement'
+import { onDecrementProgressTracker }                                                                           from '../../store/decrementThunks/thunksDecrement'
+import FinishModal                                                                                              from '../../components/FinishModal/FinishModal'
+import SuccessMessage                                                                                           from '../../components/ChhecklistBody/SuccessMessage'
+import ChecklistNavigationButtons                                                                               from '../../components/ChecklistNavigationButtons'
 import { useCookies }                                                                                           from 'react-cookie'
 import jwt_decode                                                                                               from 'jwt-decode'
-import { TokenType }                                                                                            from '../types/globalTypes'
-import PremiseName                                                                                              from '../components/PremiseName/PremiseName'
+import { TokenType }                                                                                            from '../../types/globalTypes'
+import PremiseName                                                                                              from '../../components/PremiseName/PremiseName'
 
 type ValuesType = {
   [key: number]: { [key: number]: null | boolean }[];

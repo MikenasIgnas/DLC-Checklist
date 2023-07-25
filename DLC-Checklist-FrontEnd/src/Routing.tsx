@@ -4,19 +4,26 @@ import React                            from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginPage                        from './pages/LoginPage'
 import NotFoundPage                     from './pages/NotFoundPage'
-import ChecklistHistoryPage             from './pages/ChecklistHistoryPage'
-import ChecklistStartPage               from './pages/ChecklistStartPage'
-import ChecklistRoutesPage              from './pages/ChecklistRoutesPage'
-import SingleHistoryPage                from './pages/SingleHistoryPage'
-import CreateUserPage                   from './pages/CreateUserPage'
-import ManageUsersPage                  from './pages/ManageUsersPage'
-import EditUsersProfilePage             from './pages/EditUsersProfilePage'
-import SingleUserPage                   from './pages/SingleUserPage'
+import ChecklistHistoryPage             from './pages/DLC-ChecklistPages/ChecklistHistoryPage'
+import ChecklistStartPage               from './pages/DLC-ChecklistPages/ChecklistStartPage'
+import ChecklistRoutesPage              from './pages/DLC-ChecklistPages/ChecklistRoutesPage'
+import SingleHistoryPage                from './pages/DLC-ChecklistPages/SingleHistoryPage'
+import CreateUserPage                   from './pages/DLC-UserManagementPages/CreateUserPage'
+import ManageUsersPage                  from './pages/DLC-UserManagementPages/ManageUsersPage'
+import EditUsersProfilePage             from './pages/DLC-UserManagementPages/EditUsersProfilePage'
+import SingleUserPage                   from './pages/DLC-UserManagementPages/SingleUserPage'
 import PageLayout                       from './components/PageLayout/PageLayout'
-import UsersArchivePage                 from './pages/UsersArchivePage'
+import UsersArchivePage                 from './pages/DLC-UserManagementPages/UsersArchivePage'
 import { useCookies }                   from 'react-cookie'
 import jwt_decode                       from 'jwt-decode'
 import { TokenType }                    from './types/globalTypes'
+import DLCJournalStartPage              from './pages/DLC-JounalPages/JournalStartPage'
+import VisitRegistrationPage            from './pages/DLC-JounalPages/VisitRegistrationPage'
+import HomePage                         from './pages/HomePage'
+import CompaniesListPage from './pages/DLC-JounalPages/CompaniesListPage'
+import SingleCompanyPage from './pages/DLC-JounalPages/SingleCompanyPage'
+import VisitsPage from './pages/DLC-JounalPages/VisitsPage'
+import SingleVisitPage from './pages/DLC-JounalPages/SingleVisitPage'
 
 const Routing = () => {
   const [cookies, , removeCookie] = useCookies(['access_token'])
@@ -52,15 +59,22 @@ const Routing = () => {
         ? (
           <PageLayout>
             <Routes>
-              <Route path='/' element={<ChecklistStartPage />} />
-              <Route path='checklistHistoryData' element={<ChecklistHistoryPage />} />
-              <Route path='singleHistoryUnit/:id' element={(<SingleHistoryPage />)} />
-              <Route path='ChecklistRoutes' element={<ChecklistRoutesPage />} />
-              <Route path='CreateUser' element={<CreateUserPage />} />
-              <Route path='UsersArchive' element={<UsersArchivePage />} />
-              <Route path='ManageUsers' element={<ManageUsersPage />} />
-              <Route path='EditUsersProfile' element={<EditUsersProfilePage />} />
-              <Route path='SingleUserPage/:secret' element={<SingleUserPage />} />
+              <Route path='/' element={<HomePage />} />
+              <Route path='checklistStartPage' element={<ChecklistStartPage/>}/>
+              <Route path='checklistHistoryData' element={<ChecklistHistoryPage/>}/>
+              <Route path='singleHistoryUnit/:id' element={(<SingleHistoryPage/>)}/>
+              <Route path='ChecklistRoutes' element={<ChecklistRoutesPage/>}/>
+              <Route path='DLCJournalStartPage' element={<DLCJournalStartPage/>}/>
+              <Route path='VisitRegistration' element={<VisitRegistrationPage/>}/>
+              <Route path='CompaniesList' element={<CompaniesListPage/>}/>
+              <Route path='VisitsPage' element={<VisitsPage/>}/>
+              <Route path='SingleVisitPage/:id' element={<SingleVisitPage/>}/>
+              <Route path='SingleCompanyPage/:id' element={<SingleCompanyPage/>}/>
+              <Route path='CreateUser' element={<CreateUserPage/>}/>
+              <Route path='UsersArchive' element={<UsersArchivePage/>}/>
+              <Route path='ManageUsers' element={<ManageUsersPage/>}/>
+              <Route path='EditUsersProfile' element={<EditUsersProfilePage/>}/>
+              <Route path='SingleUserPage/:secret' element={<SingleUserPage/>}/>
             </Routes>
           </PageLayout>
         )

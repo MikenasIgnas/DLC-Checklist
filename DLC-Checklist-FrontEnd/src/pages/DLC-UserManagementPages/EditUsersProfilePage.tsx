@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import React                                                          from 'react'
 import { Button, Card, ConfigProvider, Form, Input, Select, message } from 'antd'
-import { get, post }                                                  from '../Plugins/helpers'
-import { useAppDispatch, useAppSelector }                             from '../store/hooks'
-import { setUsername }                                                from '../auth/AuthReducer/reducer'
+import { get, post }                                                  from '../../Plugins/helpers'
+import { useAppDispatch, useAppSelector }                             from '../../store/hooks'
+import { setUsername }                                                from '../../auth/AuthReducer/reducer'
 import { useCookies }                                                 from 'react-cookie'
-import { TokenType }                                                  from '../types/globalTypes'
+import { TokenType }                                                  from '../../types/globalTypes'
 import jwt_decode                                                     from 'jwt-decode'
-import SuccessMessage                                                 from '../components/ChhecklistBody/SuccessMessage'
+import SuccessMessage                                                 from '../../components/ChhecklistBody/SuccessMessage'
 
 const formItemLayout = {
   labelCol: {
@@ -113,12 +113,13 @@ const EditUserProfilePage = () => {
         token: {
           colorBgContainer:     defaultTheme ? '#1e1e1e' : 'white',
           colorText:            defaultTheme ? 'white': 'black',
+          controlItemBgActive:  defaultTheme ? '#2a2a2a' : '#e6f4ff',
           colorTextPlaceholder: '#7d7d7d',
         },
       }}>
         <Card
           loading={loading}
-          headStyle={{textAlign: 'center', backgroundColor: defaultTheme? '#191919': 'white', color: defaultTheme? 'white':'black'}}
+          headStyle={{textAlign: 'center', backgroundColor: defaultTheme ? '#191919' : 'white', color: defaultTheme ? 'white' : 'black'}}
           title='Edit your Profile'
           bordered={true}
           className='CreateUserCard'>
@@ -154,6 +155,7 @@ const EditUserProfilePage = () => {
             >
               <Select
                 disabled={userProfileData?.userRole === 'admin' || userProfileData?.userRole === 'systemAdmin' ? false : true}
+                placeholder='Pasirinkti rolę'
                 dropdownStyle={{ backgroundColor: defaultTheme ? '#191919' : 'white' }}
                 options={[
                   { value: 'systemAdmin', label: 'System Admin' },

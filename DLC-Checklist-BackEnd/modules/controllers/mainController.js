@@ -440,4 +440,86 @@ module.exports = {
           );
         sendRes(res, false, 'uploadPhoto', uploadedPhoto)
     },
+
+    getCompanies: async (req, res) => {
+        const companiesCollection = client.db('ChecklistDB').collection('companiesTable');
+        const companies = await companiesCollection.find().toArray()
+        sendRes(res, false, 'Companies', companies)
+    },
+    getCompaniesSites: async (req, res) => {
+        const CompanySitesTableCollection = client.db('ChecklistDB').collection('CompanySitesTable');
+        const companiesSites = await CompanySitesTableCollection.find().toArray()
+        sendRes(res, false, 'CompanySitesTable', companiesSites)
+    },
+    getCompaniesPremises: async (req, res) => {
+        const companyPremisesCollection = client.db('ChecklistDB').collection('CompanyPremisesTable');
+        const companiesPremises = await companyPremisesCollection.find().toArray()
+        sendRes(res, false, 'CompaniesPremisesTable', companiesPremises)
+    },
+    getCompaniesColocation: async (req, res) => {
+        const companyColocationCollection = client.db('ChecklistDB').collection('ColocationTable');
+        const companiesCollocation = await companyColocationCollection.find().toArray()
+        sendRes(res, false, 'coclocation', companiesCollocation)
+    },
+    getCompaniesEmployees: async (req, res) => {
+        const companyEmployeesCollection = client.db('ChecklistDB').collection('EmployeesTable');
+        const companiesEmployees = await companyEmployeesCollection.find().toArray()
+        sendRes(res, false, 'CompaniesEmployees', companiesEmployees)
+    },
+    singleCompanyPage: async (req, res) => {
+        const {id}= req.params
+        const companiesCollection = client.db('ChecklistDB').collection('companiesTable');
+        const singleCompany = await companiesCollection.findOne({id})
+        sendRes(res, false, 'singleCompany', singleCompany)
+    },
+    getSingleCompaniesEmployees: async (req, res) => {
+        const {id} = req.params
+        const companyEmployeesCollection = client.db('ChecklistDB').collection('EmployeesTable');
+        const companiesEmployees = await companyEmployeesCollection.find({CompanyId: id}).toArray()
+        sendRes(res, false, 'companiesEmployees', companiesEmployees)
+    },
+    getSingleCompaniesSites: async (req, res) => {
+        const {id} = req.params
+        const companySitesCollection = client.db('ChecklistDB').collection('CompanySitesTable');
+        const companiesSites = await companySitesCollection.find({CompanyId: id}).toArray()
+        sendRes(res, false, 'companiesSites', companiesSites)
+    },
+    postVisitDetails: async (req, res) => {
+        const visistsCollection = client.db('ChecklistDB').collection('Visits');
+        const visitsIdCounter = client.db('ChecklistDB').collection('VisitsIdCounter')
+
+        visitsIdCounter.findOneAndUpdate(
+            {id:"visitId"},
+            {"$inc": {"seq":1}},
+            { new: true, upsert: true },
+             async (err, cd) => {
+                let seqId
+                if (!cd || !cd.value.seq) {
+                    seqId = 1;
+                }
+                else {
+                    seqId = cd.value.seq;
+                }
+                const visitRegistrationData = {
+                    visitInfo:  req.body.visitInfo,
+                    visitGoal:  req.body.visitGoal,
+                    visitorsId: req.body.visitorsId,
+                    id: String(seqId)
+                }
+                 await visistsCollection.insertOne(visitRegistrationData);
+            }
+        );
+        return sendRes(res, false, "all good", null)
+    },
+    getVisits: async (req, res) => {
+        const visistsCollection = client.db('ChecklistDB').collection('Visits');
+        const visits = await visistsCollection.find().toArray()
+        sendRes(res, false, 'visits', visits)
+    },
+    getSingleVisit: async (req, res) => {
+        const visistsCollection = client.db('ChecklistDB').collection('Visits');
+        const {id} = req.params
+        const visits = await visistsCollection.find({id}).toArray()
+        sendRes(res, false, 'visits', visits)
+    }
 }

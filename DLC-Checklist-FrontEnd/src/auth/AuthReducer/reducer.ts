@@ -15,7 +15,6 @@ const initialState: AuthReducer = {
   routeNumber: 1,
   edit:        true,
 }
-
 const authSlice = createSlice({
   name:     'auth',
   initialState,

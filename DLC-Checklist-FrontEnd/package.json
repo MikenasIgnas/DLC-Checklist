@@ -42,6 +42,7 @@
     "react-router": "^6.11.0",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "react-signature-canvas": "^1.0.6",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "redux-types": "^2.0.3",
@@ -75,6 +76,7 @@
   "devDependencies": {
     "@types/react-highlight-words": "^0.16.4",
     "@types/react-router": "^3.0.19",
+    "@types/react-signature-canvas": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "^8.2.0",

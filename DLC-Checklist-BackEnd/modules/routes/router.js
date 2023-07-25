@@ -1,9 +1,8 @@
-const express = require("express")
-const router = express.Router()
+const express =             require("express")
+const router =              express.Router()
 const FilledChecklistData = require("../../shemas/FilledChecklistData");
-const sendRes = require("../modules/UniversalRes");
-const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient('mongodb://10.81.7.29:27017/');
+const MongoClient =         require('mongodb').MongoClient;
+const client =              new MongoClient('mongodb://10.81.7.29:27017/');
 
 const {
     registerValidation,
@@ -46,6 +45,17 @@ const {
     postLastestAndCurrentPhotos,
     postLatestPhotos,
     uploadPhoto,
+    getCompanies,
+    getCompaniesSites,
+    getCompaniesPremises,
+    getCompaniesColocation,
+    getCompaniesEmployees,
+    singleCompanyPage,
+    getSingleCompaniesEmployees,
+    getSingleCompaniesSites,
+    postVisitDetails,
+    getVisits,
+    getSingleVisit,
 } = require("../controllers/mainController")
 
 router.post("/logInUser",                       login)
@@ -64,6 +74,7 @@ router.post("/postPhotos",                      verifyToken, postPhotos)
 router.post("/postLastestAndCurrentPhotos",     verifyToken, postLastestAndCurrentPhotos)
 router.post("/postLatestPhotos",                verifyToken, postLatestPhotos)
 router.post("/uploadPhoto",                     verifyToken, uploadPhoto)
+router.post("/postVisitDetails",                verifyToken, postVisitDetails)
 
 router.get("/routeData",                        verifyToken, routeData)
 router.get("/areasData",                        verifyToken, areasData)
@@ -83,10 +94,22 @@ router.get('/getHistoryData',                   verifyToken, getHistoryData)
 router.get('/getPhotos/:photoId',               verifyToken, getPhotos)
 router.get('/latestPhotos',                     verifyToken, latestPhotos)
 router.get('/deletePhoto/:photoId',             verifyToken, deletePhoto)
+
+router.get('/getCompanies',                     verifyToken, getCompanies)
+router.get('/getCompaniesSites',                verifyToken, getCompaniesSites)
+router.get('/getCompaniesPremises',             verifyToken, getCompaniesPremises)
+router.get('/getCompaniesColocation',           verifyToken, getCompaniesColocation)
+router.get('/getCompaniesEmployees',            verifyToken, getCompaniesEmployees)
+router.get('/SingleCompanyPage/:id',            verifyToken, singleCompanyPage)
+router.get('/getSingleCompaniesEmployees/:id',  verifyToken, getSingleCompaniesEmployees)
+router.get('/getSingleCompaniesSites/:id',      verifyToken, getSingleCompaniesSites)
+router.get('/getVisits',                        verifyToken, getVisits)
+router.get('/getSingleVisit/:id',               verifyToken, getSingleVisit)
+
 router.get('/checklistHistoryData',             verifyToken, paginatedResults(FilledChecklistData), (req,res) => {
   res.json(res.paginatedResults)
 })
-  
+
   function paginatedResults(model) {
     const checklistHistoryData = client.db('ChecklistDB').collection('checklistHistoryData');
     return async (req, res, next) => {

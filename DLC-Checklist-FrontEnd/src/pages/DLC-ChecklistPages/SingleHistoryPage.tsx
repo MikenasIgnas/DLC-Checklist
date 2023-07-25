@@ -3,14 +3,14 @@
 import React                                                                                                               from 'react'
 import { useParams, useSearchParams }                                                                                      from 'react-router-dom'
 import { ConfigProvider, Tabs }                                                                                            from 'antd'
-import { get }                                                                                                             from '../Plugins/helpers'
-import { useAppDispatch, useAppSelector }                                                                                  from '../store/hooks'
-import {resetReducer, setArea, setPossibleProblems, setRoute, setTodo,setFilledData, setProblemCount, setChecklistPhotos}  from '../auth/FetchedDataReducer/fetchedDataReducer'
+import { get }                                                                                                             from '../../Plugins/helpers'
+import { useAppDispatch, useAppSelector }                                                                                  from '../../store/hooks'
+import {resetReducer, setArea, setPossibleProblems, setRoute, setTodo,setFilledData, setProblemCount, setChecklistPhotos}  from '../../auth/FetchedDataReducer/fetchedDataReducer'
 import { useCookies }                                                                                                      from 'react-cookie'
-import Loader                                                                                                              from '../components/Loader/Loader'
-import HistoryRouteTab                                                                                                     from '../components/HisotryElement/HistoryRouteTab'
-import UserWhoFilled                                                                                                       from '../components/HisotryElement/UserWhoFilled'
-import TabName from '../components/HisotryElement/TabName'
+import Loader                                                                                                              from '../../components/Loader/Loader'
+import HistoryRouteTab                                                                                                     from '../../components/HisotryPageElements/HistoryRouteTab'
+import UserWhoFilled                                                                                                       from '../../components/HisotryPageElements/UserWhoFilled'
+import TabName from '../../components/HisotryPageElements/TabName'
 
 const SingleHistoryPage = () => {
   const { id } =                          useParams()
@@ -83,9 +83,8 @@ const SingleHistoryPage = () => {
           colorText: defaultPageTheme ? 'white' : 'black',
         },
       }}>
-
         <Tabs
-          tabPosition={isDesktop ? 'top' : 'left'}
+          tabPosition={'top'}
           onChange={(key) => setSearchParams(`tab=${key}`) }
           defaultActiveKey={tabUrlParam as string}
           type='line'

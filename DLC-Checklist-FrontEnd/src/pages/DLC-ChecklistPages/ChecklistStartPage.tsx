@@ -2,8 +2,8 @@
 import React                                                            from 'react'
 import { Button, Card, ConfigProvider }                                 from 'antd'
 import { useNavigate }                                                  from 'react-router-dom'
-import { clearFilleChecklistdData, get,getCurrentDate,getCurrentTime }  from '../Plugins/helpers'
-import { useAppSelector }                                               from '../store/hooks'
+import { clearFilleChecklistdData, get,getCurrentDate,getCurrentTime }  from '../../Plugins/helpers'
+import { useAppSelector }                                               from '../../store/hooks'
 import { useCookies }                                                   from 'react-cookie'
 
 const ChecklistStartPage = () => {

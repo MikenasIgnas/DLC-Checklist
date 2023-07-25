@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import React                                                          from 'react'
 import { useParams }                                                  from 'react-router-dom'
-import { get, post }                                                  from '../Plugins/helpers'
-import SuccessMessage                                                 from '../components/ChhecklistBody/SuccessMessage'
+import { get, post }                                                  from '../../Plugins/helpers'
+import SuccessMessage                                                 from '../../components/ChhecklistBody/SuccessMessage'
 import { Card, Form, Input, Button,Select, message, ConfigProvider }  from 'antd'
-import {  useAppSelector }                                            from '../store/hooks'
+import {  useAppSelector }                                            from '../../store/hooks'
 import { useCookies }                                                 from 'react-cookie'
 
 const formItemLayout = {
@@ -100,11 +100,17 @@ const SingleUserPage = () => {
         token: {
           colorBgContainer:     defaultTheme ? '#1e1e1e' : 'white',
           colorText:            defaultTheme ? 'white' : 'black',
+          controlItemBgActive:  defaultTheme ? '#2a2a2a' : '#e6f4ff',
           colorTextPlaceholder: '#7d7d7d',
         },
       }}>
 
-        <Card loading={loading} headStyle={{textAlign: 'center', backgroundColor: defaultTheme? '#191919': 'white', color: defaultTheme? 'white':'black'}} title={`Edit Users ${singleUser?.username} Profile`} bordered={true} className='CreateUserCard'>
+        <Card
+          loading={loading}
+          headStyle={{textAlign: 'center', backgroundColor: defaultTheme ? '#191919' : 'white', color: defaultTheme ? 'white' : 'black'}}
+          title={`Edit Users ${singleUser?.username} Profile`}
+          bordered={true}
+          className='CreateUserCard'>
           <Form
             {...formItemLayout}
             form={form}

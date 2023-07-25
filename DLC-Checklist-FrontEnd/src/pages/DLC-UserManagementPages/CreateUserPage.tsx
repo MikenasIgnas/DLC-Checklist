@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import { Button, Card, ConfigProvider, Form, Input, Select, message }   from 'antd'
 import React                                                            from 'react'
-import { getCurrentDate, post }                                         from '../Plugins/helpers'
-import SuccessMessage                                                   from '../components/ChhecklistBody/SuccessMessage'
+import { getCurrentDate, post }                                         from '../../Plugins/helpers'
+import SuccessMessage                                                   from '../../components/ChhecklistBody/SuccessMessage'
 import { useNavigate }                                                  from 'react-router-dom'
-import { useAppSelector }                                               from '../store/hooks'
+import { useAppSelector }                                               from '../../store/hooks'
 import { useCookies }                                                   from 'react-cookie'
 
 const formItemLayout = {
